@@ -1,0 +1,57 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+
+  <input formControlName="empresa" placeholder="Empresa atual">
+  <div *ngIf="form.get('empresa')?.touched && form.get('empresa')?.invalid">
+    <small>Empresa obrigatória</small>
+  </div>
+
+  <hr>
+
+  <h3>Experiências</h3>
+
+  <p>Total: {{ experiencias.length }}</p>
+
+  <button type="button" (click)="adicionarExperiencia()">
+    Adicionar experiência
+  </button>
+
+  <div formArrayName="experiencias">
+
+    <div *ngFor="let exp of experiencias.controls; let i = index" [formGroupName]="i">
+
+      <h4>Experiência {{ i + 1 }}</h4>
+
+      <input formControlName="empresa" placeholder="Empresa">
+      <small *ngIf="exp.get('empresa')?.touched && exp.get('empresa')?.invalid">
+        Obrigatório
+      </small>
+
+      <input formControlName="cargo" placeholder="Cargo">
+      <small *ngIf="exp.get('cargo')?.touched && exp.get('cargo')?.invalid">
+        Obrigatório
+      </small>
+
+      <input type="number" formControlName="anoInicio" placeholder="Ano início">
+      <small *ngIf="exp.get('anoInicio')?.touched && exp.get('anoInicio')?.invalid">
+        Mínimo 1990 obrigatório
+      </small>
+
+      <input type="number" formControlName="anoFim" placeholder="Ano fim">
+
+      <button type="button" (click)="removerExperiencia(i)">
+        Remover
+      </button>
+
+      <hr>
+
+    </div>
+
+  </div>
+
+  <button type="submit">Enviar currículo</button>
+
+      <div *ngIf="success">
+        <p>Currículo enviado com sucesso!</p>
+    </div>
+
+</form>
