@@ -1,0 +1,57 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+
+  <input type="text" formControlName="nome" placeholder="Nome completo">
+  <div *ngIf="f['nome'].touched && f['nome'].invalid">
+    <small *ngIf="f['nome'].errors?.['required']">Nome é obrigatório</small>
+    <small *ngIf="f['nome'].errors?.['minlength']">Mínimo 5 caracteres</small>
+    <small *ngIf="f['nome'].errors?.['maxlength']">Máximo 100 caracteres</small>
+  </div>
+
+  <input type="text" formControlName="cpf" placeholder="000.000.000-00">
+  <div *ngIf="f['cpf'].touched && f['cpf'].invalid">
+    <small *ngIf="f['cpf'].errors?.['required']">CPF é obrigatório</small>
+    <small *ngIf="f['cpf'].errors?.['cpfInvalido']">Formato inválido</small>
+  </div>
+
+  <input type="email" formControlName="email" placeholder="Email">
+  <div *ngIf="f['email'].touched && f['email'].invalid">
+    <small *ngIf="f['email'].errors?.['required']">Email obrigatório</small>
+    <small *ngIf="f['email'].errors?.['email']">Email inválido</small>
+  </div>
+
+  <input type="date" formControlName="dataNascimento">
+  <div *ngIf="f['dataNascimento'].touched && f['dataNascimento'].invalid">
+    <small>Data obrigatória</small>
+  </div>
+
+  <input type="password" formControlName="senha" placeholder="Senha">
+  <div *ngIf="f['senha'].touched && f['senha'].invalid">
+    <small *ngIf="f['senha'].errors?.['required']">Senha obrigatória</small>
+    <small *ngIf="f['senha'].errors?.['minlength']">Mínimo 8 caracteres</small>
+    <small *ngIf="f['senha'].errors?.['senhaFraca']">
+      Precisa de letra maiúscula e número
+    </small>
+  </div>
+
+  <input type="password" formControlName="confirmarSenha" placeholder="Confirmar senha">
+  <div *ngIf="form.errors?.['senhasDiferentes'] && f['confirmarSenha'].touched">
+    <small>Senhas não coincidem</small>
+  </div>
+
+  <select formControlName="perfil">
+    <option value="">Selecione</option>
+    <option value="aluno">Aluno</option>
+    <option value="professor">Professor</option>
+    <option value="admin">Administrador</option>
+  </select>
+  <div *ngIf="f['perfil'].touched && f['perfil'].invalid">
+    <small>Perfil obrigatório</small>
+  </div>
+
+  <button type="submit">Cadastrar</button>
+
+    <div *ngIf="success">
+        <p>Usuário cadastrado com sucesso!</p>
+    </div>
+
+</form>
